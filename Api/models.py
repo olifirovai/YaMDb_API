@@ -3,16 +3,14 @@ from django.contrib.auth.models import AbstractUser, PermissionsMixin
 
 
 class User(AbstractUser):
-    description = models.TextField(max_length=120, blank=True, null=True)
-    role = models
-
+    bio = models.TextField(max_length=120, blank=True)
+    role = models.CharField(max_length=20, blank=True, default='user')
+    email = models.EmailField(blank=False, unique=True)
 
 
     class Meta(AbstractUser.Meta):
         AbstractUser._meta.get_field('first_name').max_length = 20
         AbstractUser._meta.get_field('last_name').max_length = 40
-        AbstractUser._meta.get_field('email').required = True
-        AbstractUser._meta.get_field('email').blank = False
 
     def __str__(self):
         return self.username

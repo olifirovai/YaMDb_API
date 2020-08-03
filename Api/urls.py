@@ -8,5 +8,6 @@ router.register('users', UserViewSet, 'users')
 urlpatterns = [
     path('v1/auth/token/', TokenObtainPairView.as_view(),
          name='token_obtain_pair'),
+    # path(),
     path('v1/', include(router.urls)),
 ]
