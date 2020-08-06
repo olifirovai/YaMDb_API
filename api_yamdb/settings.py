@@ -18,6 +18,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'Api',
     'rest_framework',
+    'simple_email_confirmation',
+    'djoser',
+    'rest_framework.authtoken',
 ]
 
 MIDDLEWARE = [

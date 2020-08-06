@@ -14,22 +14,20 @@ class UserSerializer(serializers.ModelSerializer):
         fields = (
         'first_name', 'last_name', 'username', 'bio', 'email', 'role')
 
-'''Пока не Копируй'''
-class TokenSerializer(serializers.ModelSerializer):
-    confirmation_code = serializers.CharField()
-    email = serializers.EmailField()
+class EmailSerializer(serializers.Serializer):
+    email = serializers.EmailField(required=True)
 
-    def validate(self, attrs):
-        email = {'email': attrs.get('email')}
-        confirmation_code = {
-            'confirmation_code': attrs.get('confirmation_code')}
-        if not email.values():
-            raise ValueError('Email is required.')
-        elif not confirmation_code.values():
-            raise ValueError('Confirmation code is required.')
-        return self.is_valid()
+    # class Meta:
+    #     model = User
+    #     fields = ('email', 'confirmation_code')
+    #
 
-    class Meta:
-        model = User
-        fields = ('email', 'confirmation_code')
+class ConfirmationCodeSerializer(serializers.Serializer):
+    confirmation_code = serializers.CharField(required=True)
+    email = serializers.EmailField(required=True)
 
+
+    # class Meta:
+    #     model = User
+    #     fields = ('email', 'confirmation_code')
+    #
