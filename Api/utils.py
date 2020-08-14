@@ -8,6 +8,7 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework_simplejwt.tokens import AccessToken
 from django.shortcuts import get_object_or_404
+from django.contrib.auth.tokens import default_token_generator
 
 def random_code_generator(size=30,
                           chars=string.ascii_lowercase + string.digits):
@@ -27,12 +28,12 @@ def unique_confrm_code_generator():
 def send_confirmation_code(request):
     serializer = EmailSerializer(data=request.data)
     user = get_object_or_404(User, email=request.data['email'])
-    email = request.data['email']
-    mail_subject = 'Confirmation code'
-    message = f'Use this code:{user.confirmation_code} to get your personal Token'
     if serializer.is_valid():
-        send_mail(mail_subject, message, None , [email])
-        return Response(f'Your confirmation code will be sent to your email: {email}',
+        token = default_token_generator.make_token(user)
+        mail_subject = 'Confirmation code'
+        message = f'Use this code:{token} to get your personal Token'
+        send_mail(mail_subject, message, None , [user.email])
+        return Response(f'Your confirmation code will be sent to your email: {user.email}',
                         status=status.HTTP_200_OK)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 

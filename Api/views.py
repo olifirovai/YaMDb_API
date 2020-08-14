@@ -1,23 +1,24 @@
 from django.db.models import Avg
-from django_filters.rest_framework import DjangoFilterBackend
-from Api.utils import unique_confrm_code_generator
 from django.shortcuts import get_object_or_404
-from rest_framework.permissions import IsAuthenticated
-from rest_framework.views import APIView
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import (viewsets,
-                            generics,
                             filters,
-                            mixins,
                             status,
                             permissions
-)
-from rest_framework.exceptions import ParseError, ValidationError
-from rest_framework.mixins import CreateModelMixin, ListModelMixin, DestroyModelMixin
-from rest_framework.viewsets import GenericViewSet
-from rest_framework.response import Response
+                            )
+from rest_framework.exceptions import ValidationError
+from rest_framework.mixins import CreateModelMixin, ListModelMixin, \
+    DestroyModelMixin
 from rest_framework.pagination import PageNumberPagination
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from rest_framework.viewsets import GenericViewSet
 
-from .models import Category, Genre, Title, Review, Comment, User
+from Api.utils import unique_confrm_code_generator
+from .filters import TitlesFilter
+from .models import Category, Genre, Title, Review, User
+from .permissions import IsAdminOrReadOnly, IsAuthorOrAdminOrModerator, IsAdmin
 from .serializers import (CategorySerializer,
                           GenreSerializer,
                           TitleSerializer,
@@ -25,9 +26,7 @@ from .serializers import (CategorySerializer,
                           CommentSerializer,
                           UserSerializer,
                           UserRoleSerializer
-)
-from .permissions import IsAdminOrReadOnly, IsAuthorOrAdminOrModerator, IsAdmin
-from .filters import TitlesFilter
+                          )
 
 
 class UserViewSet(viewsets.ModelViewSet):
