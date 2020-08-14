@@ -15,7 +15,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.viewsets import GenericViewSet
 
-from Api.utils import unique_confrm_code_generator
+from api.utils import unique_confrm_code_generator
 from .filters import TitlesFilter
 from .models import Category, Genre, Title, Review, User
 from .permissions import IsAdminOrReadOnly, IsAuthorOrAdminOrModerator, IsAdmin

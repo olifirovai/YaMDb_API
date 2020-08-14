@@ -1,8 +1,8 @@
 import random
 import string
-from Api.models import User
+from api.models import User
 from django.core.mail import send_mail
-from Api.serializers import EmailSerializer, ConfirmationCodeSerializer
+from api.serializers import EmailSerializer, ConfirmationCodeSerializer
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.decorators import api_view
