@@ -5,10 +5,11 @@ from .models import Category, Title, Genre, Comment, Review, User
 
 
 class UserSerializer(serializers.ModelSerializer):
-    username = serializers.CharField(
-        validators=[UniqueValidator(queryset=User.objects.all())])
     email = serializers.EmailField(
         validators=[UniqueValidator(queryset=User.objects.all())])
+    username = serializers.CharField(
+        validators=[UniqueValidator(queryset=User.objects.all())],
+        default=email)
 
     class Meta:
         model = User
@@ -20,9 +21,9 @@ class EmailSerializer(serializers.Serializer):
     email = serializers.EmailField(required=True)
 
 
-class ConfirmationCodeSerializer(serializers.Serializer):
-    confirmation_code = serializers.CharField(required=True)
+class CodeSerializer(serializers.Serializer):
     email = serializers.EmailField(required=True)
+    code = serializers.CharField()
 
 
 class UserRoleSerializer(UserSerializer):
