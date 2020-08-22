@@ -89,24 +89,37 @@ class AuthEmailConfirmation(viewsets.ModelViewSet):
         return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
-class CategoryViewSet(GenericViewSet, ListModelMixin, CreateModelMixin,
-                      DestroyModelMixin):
+    
+class CategoryViewSet(viewsets.ModelViewSet):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
-    permission_classes = [IsAdminOrReadOnly, ]
-    filter_backends = [filters.SearchFilter]
-    search_fields = ['=name', ]
-    lookup_field = 'slug'
-
-
-class GenreViewSet(GenericViewSet, ListModelMixin, CreateModelMixin,
-                   DestroyModelMixin):
-    serializer_class = GenreSerializer
-    queryset = Genre.objects.all()
+    pagination_class = PageNumberPagination
     permission_classes = [IsAdminOrReadOnly, ]
     filter_backends = [filters.SearchFilter]
     search_fields = ['name', ]
     lookup_field = 'slug'
+
+    def retrieve(self, request, *args, **kwargs):
+        return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
+
+    def update(self, request, *args, **kwargs):
+        return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
+
+
+class GenreViewSet(viewsets.ModelViewSet):
+    queryset = Genre.objects.all()
+    serializer_class = GenreSerializer
+    pagination_class = PageNumberPagination
+    permission_classes = [IsAdminOrReadOnly]
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['name', ]
+    lookup_field = 'slug'
+
+    def retrieve(self, request, *args, **kwargs):
+        return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
+
+    def update(self, request, *args, **kwargs):
+        return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
 
 class TitleViewSet(viewsets.ModelViewSet):
