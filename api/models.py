@@ -25,7 +25,7 @@ class User(AbstractUser):
 
     bio = models.TextField(max_length=200, blank=True,
                            verbose_name='user\'s biography',
-                           help_text='Here you can add information about youself')
+                           help_text='Here You can add information about Youself')
     role = models.CharField(choices=UserRole.choices, default=UserRole.USER,
                             max_length=40, verbose_name='user\'s role')
 
@@ -48,7 +48,8 @@ class User(AbstractUser):
 
 class Category(models.Model):
     name = models.CharField(max_length=200, verbose_name='category\'s name')
-    slug = models.SlugField(unique=True, verbose_name='category\'s slug')
+    slug = models.SlugField(unique=True, verbose_name='category\'s slug',
+                            help_text='This field should be unique')
 
     class Meta:
         verbose_name = 'Category'
@@ -61,7 +62,8 @@ class Category(models.Model):
 
 class Genre(models.Model):
     name = models.CharField(max_length=200, verbose_name='genre\'s name')
-    slug = models.SlugField(unique=True, verbose_name='genre\'s slug')
+    slug = models.SlugField(unique=True, verbose_name='genre\'s slug',
+                            help_text='This field should be unique')
 
     class Meta:
         verbose_name = 'Genre'
@@ -78,14 +80,16 @@ class Title(models.Model):
                                            MaxValueValidator(
                                                datetime.now().year)],
                                null=True, blank=True,
-                               verbose_name='title\'s year')
+                               verbose_name='title\'s year',
+                               help_text='Should be XXXX type')
     category = models.ForeignKey(Category, on_delete=models.SET_NULL,
                                  related_name='category_titles', null=True,
                                  verbose_name='category')
     genre = models.ManyToManyField(Genre, related_name='genre_titles',
                                    blank=True, verbose_name='genre')
     description = models.TextField(blank=True,
-                                   verbose_name='title description')
+                                   verbose_name='title description',
+                                   help_text='Here you can add description about a movie')
 
     class Meta:
         verbose_name = 'Title'
@@ -102,10 +106,9 @@ class Review(models.Model):
                                verbose_name='review author')
     score = models.IntegerField(
         validators=[MinValueValidator(1), MaxValueValidator(10)],
-        verbose_name='title score')
+        verbose_name='title score', help_text='Can range from 1 to 10')
     pub_date = models.DateTimeField(verbose_name='date published',
-                                    auto_now_add=True,
-                                    db_index=True)
+                                    auto_now_add=True, db_index=True)
 
     class Meta:
         verbose_name = 'Review'

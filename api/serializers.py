@@ -55,7 +55,8 @@ class TitleReadSerializer(serializers.ModelSerializer):
 class TitleWriteSerializer(serializers.ModelSerializer):
     category = serializers.SlugRelatedField(queryset=Category.objects.all(),
                                             slug_field='slug')
-    genre = serializers.SlugRelatedField(queryset=Genre.objects.all(), slug_field='slug', many=True)
+    genre = serializers.SlugRelatedField(queryset=Genre.objects.all(),
+                                         slug_field='slug', many=True)
 
     class Meta:
         fields = '__all__'
@@ -78,7 +79,6 @@ class ReviewSerializer(serializers.ModelSerializer):
         if Review.objects.filter(author=user, title_id=title).exists():
             raise serializers.ValidationError('Вы уже поставили оценку')
         return data
-
 
 
 class CommentSerializer(serializers.ModelSerializer):
