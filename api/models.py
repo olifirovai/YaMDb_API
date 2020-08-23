@@ -79,14 +79,13 @@ class Title(models.Model):
                                                datetime.now().year)],
                                null=True, blank=True,
                                verbose_name='title\'s year')
-    description = models.CharField(max_length=1000, blank=True,
-                                   verbose_name='title\'s description')
-    rating = models.IntegerField(blank=True, null=True,
-                                 verbose_name='title\'s rating')
-    genre = models.ManyToManyField(Genre, verbose_name='title\'s genre')
     category = models.ForeignKey(Category, on_delete=models.SET_NULL,
-                                 blank=True, null=True,
-                                 verbose_name='title\'s genre')
+                                 related_name='category_titles', null=True,
+                                 verbose_name='category')
+    genre = models.ManyToManyField(Genre, related_name='genre_titles',
+                                   blank=True, verbose_name='genre')
+    description = models.TextField(blank=True,
+                                   verbose_name='title description')
 
     class Meta:
         verbose_name = 'Title'
@@ -95,18 +94,18 @@ class Title(models.Model):
 
 
 class Review(models.Model):
-    text = models.TextField(max_length=3000, verbose_name='review\'s text')
-    author = models.ForeignKey(User, on_delete=models.CASCADE,
-                               related_name='reviews',
-                               verbose_name='review\'s author')
-    score = models.PositiveSmallIntegerField(
-        validators=[MinValueValidator(1), MaxValueValidator(10)],
-        verbose_name='review\'s score')
-    pub_date = models.DateTimeField(auto_now_add=True,
-                                    verbose_name='review\'s date of publication')
     title = models.ForeignKey(Title, on_delete=models.CASCADE,
-                              related_name='reviews',
-                              verbose_name='review\'s title')
+                              related_name='titles_reviews')
+    text = models.TextField(verbose_name='review text')
+    author = models.ForeignKey(User, on_delete=models.CASCADE,
+                               related_name='author_reviews',
+                               verbose_name='review author')
+    score = models.IntegerField(
+        validators=[MinValueValidator(1), MaxValueValidator(10)],
+        verbose_name='title score')
+    pub_date = models.DateTimeField(verbose_name='date published',
+                                    auto_now_add=True,
+                                    db_index=True)
 
     class Meta:
         verbose_name = 'Review'

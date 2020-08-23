@@ -16,25 +16,30 @@ admin.site.register(User, UserAdmin)
 
 
 @admin.register(Category)
-class CategoryResource(ImportExportModelAdmin):
-    pass
+class CategoryAdmin(ImportExportModelAdmin):
+    list_display = ['name', 'slug']
+    search_fields = ['name']
 
 
 @admin.register(Title)
-class CategoryResource(ImportExportModelAdmin):
-    pass
+class TitleResource(ImportExportModelAdmin):
+    list_display = ['name', 'year']
+    search_fields = ['name']
 
 
 @admin.register(Genre)
-class CategoryResource(ImportExportModelAdmin):
-    pass
+class GenreResource(ImportExportModelAdmin):
+    list_display = ['name', 'slug']
+    search_fields = ['name']
 
 
 @admin.register(Review)
-class CategoryResource(ImportExportModelAdmin):
-    pass
+class ReviewResource(ImportExportModelAdmin):
+    list_display = ['text', 'author']
+    search_fields = ['text']
 
 
 @admin.register(Comment)
-class CategoryResource(ImportExportModelAdmin):
-    pass
+class CommentResource(ImportExportModelAdmin):
+    list_display = ['author', 'review', 'text']
+    search_fields = ['author']
