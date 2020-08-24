@@ -9,13 +9,16 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
 
-from .filters import TitlesFilter
-from .models import Category, Genre, Title, Review, User, Comment
-from .permissions import IsAdminOrReadOnly, IsAuthorOrAdminOrModerator, IsAdmin
-from .serializers import (CategorySerializer, GenreSerializer,
-                          TitleReadSerializer, TitleWriteSerializer,
-                          ReviewSerializer, CommentSerializer, UserSerializer,
-                          UserRoleSerializer, EmailSerializer, CodeSerializer)
+from api.serializers import (CategorySerializer, GenreSerializer,
+                             TitleReadSerializer, TitleWriteSerializer,
+                             ReviewSerializer, CommentSerializer,
+                             UserSerializer, UserRoleSerializer,
+                             EmailSerializer, CodeSerializer)
+from content.filters import TitlesFilter
+from content.models import Category, Genre, Title, Review, Comment
+from user.models import User
+from user.permissions import (IsAdminOrReadOnly, IsAuthorOrAdminOrModerator,
+                              IsAdmin)
 
 
 class UserViewSet(viewsets.ModelViewSet):
