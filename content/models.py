@@ -36,12 +36,11 @@ class Genre(models.Model):
 
 class Title(models.Model):
     name = models.CharField(max_length=300, verbose_name='title\'s name')
-    year = models.IntegerField(validators=[MinValueValidator(1894),
-                                           MaxValueValidator(
-                                               datetime.now().year)],
-                               null=True, blank=True,
-                               verbose_name='title\'s year',
-                               help_text='Should be XXXX type')
+    year = models.IntegerField(
+        validators=[MaxValueValidator(datetime.now().year)],
+        null=True, blank=True,
+        verbose_name='title\'s year',
+        help_text='Should be XXXX type')
     category = models.ForeignKey(Category, on_delete=models.SET_NULL,
                                  related_name='category_titles', null=True,
                                  verbose_name='category')

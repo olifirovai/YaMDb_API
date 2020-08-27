@@ -26,9 +26,6 @@ class IsAuthorOrAdminOrModerator(permissions.BasePermission):
                 request.user and request.user.is_authenticated)
 
     def has_object_permission(self, request, view, obj=None):
-        if request.user.is_authenticated:
-            permissions_roles = request.user.is_admin or \
-                                request.user.is_moderator or \
-                                obj.author == request.user
-            return (request.method == 'POST' or (permissions_roles))
-        return (request.method in SAFE_METHODS)
+        return (request.method in SAFE_METHODS or request.user.is_authenticated
+                and (request.user.is_admin or request.user.is_moderator
+                     or obj.author == request.user))
