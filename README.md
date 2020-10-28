@@ -66,4 +66,10 @@
 </ul>
 
 
-<p><a href="">Redoc Documentation</a></p>
+<p>Redoc Documentation - <a href="https://github.com/olifirovai/api_yamdb/blob/master/static/redoc_en.yaml">English version</a> and <a href="https://github.com/olifirovai/api_yamdb/blob/master/static/redoc_ru.yaml">Russian version</a></p>
+<p></p>
+
+
+<h5>Participants</h5>
+<p><a href="https://github.com/JackDaniels07">Denis</a> - Content Part (reviews, comments, categories, genres, titles): Models, views, endpoints, permissions related to part, rating score</p>
+<p><a href="https://github.com/olifirovai">Irina Olifirova</a> - User and Auth parts: registration and authentication, permissions, roles, token authentication, e-mail confirmation system.</p>
