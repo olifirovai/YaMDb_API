@@ -1,6 +1,6 @@
 # api_yamdb
 
-**REST API** for **YaMDb** service - *movie, book* and *music* reviews database. Team project of [Practicum students by Yandex](https://practicum.yandex.com/)
+**REST API** for **YaMDb** service - *movie, book* and *music* reviews database.
 
 ## API for YaMDb service allows to run the following functions:
 
